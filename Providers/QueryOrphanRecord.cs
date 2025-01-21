@@ -1,9 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace TurboQuery.Providers;
 
-public class OrphanRecord<T>: BaseTurboQuery
+public class QueryOrphanRecord<T>: BaseTurboQuery
 {
     /// <summary>
     /// Asynchronously retrieves a single record from the database based on the provided query.
