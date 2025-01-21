@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace TurboQuery.Providers;
@@ -25,9 +26,10 @@ public class QueryBatchRecords<T> : BaseTurboQuery
     /// - @PageSize: The number of records per page.
     /// The <paramref name="reader"/> delegate is used to map each row of the result set to an object of type <typeparamref name="T"/>.
     /// </remarks>
-    public static async Task<IEnumerable<T>> BatchingTableAsync(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
+    public async Task<IEnumerable<T>> BatchingTableAsync(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
     {
-        return await QueryExecutor<T>.ExecuteReaderAsync(ProcedureNameForBatchTable, async (SqlCommand cmd) =>
+
+        return await (new QueryExecutor<T>()).ExecuteReaderAsync(ProcedureNameForBatchTable, async (SqlCommand cmd) =>
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Query", sql);
@@ -58,9 +60,9 @@ public class QueryBatchRecords<T> : BaseTurboQuery
     /// - @PageSize: The number of records per page.
     /// The <paramref name="reader"/> delegate is used to map each row of the result set to an object of type <typeparamref name="T"/>.
     /// </remarks>
-    public static IEnumerable<T> BatchingTable(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
+    public IEnumerable<T> BatchingTable(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
     {
-        return QueryExecutor<T>.ExecuteReader(ProcedureNameForBatchTable, async (SqlCommand cmd) =>
+        return (new QueryExecutor<T>()).ExecuteReader(ProcedureNameForBatchTable, async (SqlCommand cmd) =>
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Query", sql);

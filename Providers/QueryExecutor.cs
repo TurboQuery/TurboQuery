@@ -16,7 +16,7 @@ public class QueryExecutor<T> : BaseTurboQuery
     /// to transform each row of the result set into an object of type <typeparamref name="T"/>. The method is asynchronous and uses
     /// <see cref="SqlConnection"/>, <see cref="SqlCommand"/>, and <see cref="SqlDataReader"/> for database operations.
     /// </remarks>
-    public static async Task<IEnumerable<T>> ExecuteReaderAsync(string Query, Func<SqlDataReader, T> mapFunction)
+    public async Task<IEnumerable<T>> ExecuteReaderAsync(string Query, Func<SqlDataReader, T> mapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -49,7 +49,7 @@ public class QueryExecutor<T> : BaseTurboQuery
     /// to transform each row of the result set into an object of type <typeparamref name="T"/>. The method is asynchronous and uses
     /// <see cref="SqlConnection"/>, <see cref="SqlCommand"/>, and <see cref="SqlDataReader"/> for database operations.
     /// </remarks>
-    public static IEnumerable<T> ExecuteReader(string Query, Func<SqlDataReader, T> mapFunction)
+    public IEnumerable<T> ExecuteReader(string Query, Func<SqlDataReader, T> mapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -94,7 +94,7 @@ public class QueryExecutor<T> : BaseTurboQuery
     /// Make sure the connection string is properly secured and appropriate for your environment.
     /// </remarks>
 
-    public static async Task<IEnumerable<T>> ExecuteReaderAsync(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
+    public async Task<IEnumerable<T>> ExecuteReaderAsync(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -138,7 +138,7 @@ public class QueryExecutor<T> : BaseTurboQuery
     /// This method uses an synchronous pattern for database access to ensure scalability and responsiveness. 
     /// Make sure the connection string is properly secured and appropriate for your environment.
     /// </remarks>
-    public static IEnumerable<T> ExecuteReader(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
+    public IEnumerable<T> ExecuteReader(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))

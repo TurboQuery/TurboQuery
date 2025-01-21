@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace TurboQuery.Providers;
 
@@ -27,7 +28,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
     /// </example>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public static async Task<T> ExecuteScalarAsync(string Query, Action<SqlCommand> SetParameters)
+    public async Task<T> ExecuteScalarAsync(string Query, Action<SqlCommand> SetParameters)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
@@ -58,7 +59,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
     /// </remarks>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public static T ExecuteScalar(string Query, Action<SqlCommand> SetParameters)
+    public T ExecuteScalar(string Query, Action<SqlCommand> SetParameters)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
@@ -87,7 +88,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
     /// </remarks>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public static async Task<T> ExecuteScalarAsync(string Query)
+    public async Task<T> ExecuteScalarAsync(string Query)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
@@ -115,7 +116,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
     /// </remarks>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public static T ExecuteScalar(string Query)
+    public T ExecuteScalar(string Query)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {

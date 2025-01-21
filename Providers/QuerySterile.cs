@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace TurboQuery.Providers;
 
@@ -53,7 +54,7 @@ public class QuerySterile : BaseTurboQuery
     /// </remarks>
     /// <exception cref="SqlException">Thrown when an error occurs during the execution of the SQL command.</exception>
     /// <exception cref="InvalidOperationException">Thrown if the connection string is not valid or the connection cannot be opened.</exception>
-    public static int ExecuteNonQuery(string Query, Action<SqlCommand> SetParams)
+    public int ExecuteNonQuery(string Query, Action<SqlCommand> SetParams)
     {
         int RowAffected = 0;
 
@@ -68,7 +69,6 @@ public class QuerySterile : BaseTurboQuery
         }
         return RowAffected;
     }
-
 
 
     /// <summary>
@@ -117,7 +117,7 @@ public class QuerySterile : BaseTurboQuery
     /// </remarks>
     /// <exception cref="SqlException">Thrown when an error occurs during the execution of the SQL command.</exception>
     /// <exception cref="InvalidOperationException">Thrown if the connection string is not valid or the connection cannot be opened.</exception>
-    public static int ExecuteNonQuery(string Query)
+    public int ExecuteNonQuery(string Query)
     {
         int RowAffected = 0;
 
