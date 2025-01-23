@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using TurboQuery.Interfaces;
 using TurboQuery.Providers;
 
 namespace TurboQuery;
@@ -31,7 +32,19 @@ public class DatabaseInitializer : BaseTurboQuery
         if (string.IsNullOrEmpty(sql))
             throw new InvalidOperationException("SQL script could not be loaded.");
 
-        
+
         (new QuerySterile()).ExecuteNonQuery(sql);
+    }
+
+    public static IServiceCollection ChooseDatabase(ref IServiceCollection services)
+    {
+
+        services.AddScoped(typeof(IQueryBatchRecords<>), typeof(QueryBatchRecords<>));
+        services.AddScoped(typeof(IQueryExecutor<>), typeof(QueryExecutor<>));
+        services.AddScoped(typeof(IQueryOrphanRecord<>), typeof(QueryOrphanRecord<>));
+        services.AddScoped(typeof(IQueryScalarExecutor<>), typeof(QueryScalarExecutor<>));
+        services.AddScoped<IQuerySterile, QuerySterile>();
+
+        return services;
     }
 }

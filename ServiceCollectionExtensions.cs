@@ -1,29 +1,29 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TurboQuery.Interfaces;
-using TurboQuery.Providers;
 
 namespace TurboQuery;
 
 public static class ServiceCollectionExtensions
 {
- 
+
     public static IServiceCollection AddTurboQuery(this IServiceCollection services, Action<TurboQueryOptions> configureOptions)
     {
         var options = new TurboQueryOptions();
         configureOptions(options);
 
-        TurboQueryGlobals.Configure(options);
+        TurboQueryGlobules.Configure(options);
 
-        _InitDB();
+
+        _InitDB(services);
         return services;
     }
 
-    private static void _InitDB()
+    private static void _InitDB(IServiceCollection services)
     {
-        if (!TurboQueryGlobals.IsDbInitialized)
+        DatabaseInitializer.ChooseDatabase(ref services);
+        if (!TurboQueryGlobules.IsDbInitialized)
         {
             DatabaseInitializer.InitializeDatabase();
-            TurboQueryGlobals.IsDbInitialized = true;
+            TurboQueryGlobules.IsDbInitialized = true;
         }
     }
 }

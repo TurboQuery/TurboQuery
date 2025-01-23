@@ -6,7 +6,7 @@ public abstract class BaseTurboQuery
     protected static string ProcedureNameForBatchTable;
     public BaseTurboQuery()
     {
-        ConnectionString = TurboQueryGlobals.Options.ConnectionString;
-        ProcedureNameForBatchTable = TurboQueryGlobals.Options.ProcedureNameForBatchTable;
+        ConnectionString = TurboQueryGlobules.Options.ConnectionString;
+        ProcedureNameForBatchTable = TurboQueryGlobules.Options.ProcedureNameForBatchTable;
     }
 }

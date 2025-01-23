@@ -1,6 +1,6 @@
 ﻿namespace TurboQuery;
 
-public static class TurboQueryGlobals
+public static class TurboQueryGlobules
 {
     public static TurboQueryOptions Options { get; private set; }
 
