@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using TurboQuery.Interfaces;
 
-namespace TurboQuery.Providers;
+namespace TurboQuery.Providers.SqlServer;
 
 public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
 {

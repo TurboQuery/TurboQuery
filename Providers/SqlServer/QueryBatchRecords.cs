@@ -2,7 +2,7 @@
 using System.Data;
 using TurboQuery.Interfaces;
 
-namespace TurboQuery.Providers;
+namespace TurboQuery.Providers.SqlServer;
 
 public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
 {
@@ -29,7 +29,7 @@ public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
     public async Task<IEnumerable<T>> BatchingTableAsync(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
     {
 
-        return await (new QueryExecutor<T>()).ExecuteReaderAsync(ProcedureNameForBatchTable, async (SqlCommand cmd) =>
+        return await new QueryExecutor<T>().ExecuteReaderAsync(ProcedureNameForBatchTable, async (cmd) =>
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Query", sql);
@@ -62,7 +62,7 @@ public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
     /// </remarks>
     public IEnumerable<T> BatchingTable(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
     {
-        return (new QueryExecutor<T>()).ExecuteReader(ProcedureNameForBatchTable, async (SqlCommand cmd) =>
+        return new QueryExecutor<T>().ExecuteReader(ProcedureNameForBatchTable, async (cmd) =>
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Query", sql);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using TurboQuery.Interfaces;
-using TurboQuery.Providers;
+using TurboQuery.Config;
+using TurboQuery.Providers.SqlServer;
 
 namespace TurboQuery;
 
@@ -38,12 +38,15 @@ public class DatabaseInitializer : BaseTurboQuery
 
     public static IServiceCollection ChooseDatabase(ref IServiceCollection services)
     {
+        switch (TurboQueryGlobules.Options.DatabaseEngine)
+        {
+            case Enums.DatabaseEngine.SqlServer:
+                DependenciesInjection.AddSqlServerServices(ref services);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(TurboQueryGlobules.Options.DatabaseEngine), TurboQueryGlobules.Options.DatabaseEngine, "Unsupported database engine.");
+        }
 
-        services.AddScoped(typeof(IQueryBatchRecords<>), typeof(QueryBatchRecords<>));
-        services.AddScoped(typeof(IQueryExecutor<>), typeof(QueryExecutor<>));
-        services.AddScoped(typeof(IQueryOrphanRecord<>), typeof(QueryOrphanRecord<>));
-        services.AddScoped(typeof(IQueryScalarExecutor<>), typeof(QueryScalarExecutor<>));
-        services.AddScoped<IQuerySterile, QuerySterile>();
 
         return services;
     }

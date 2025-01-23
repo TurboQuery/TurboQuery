@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
 
         TurboQueryGlobules.Configure(options);
 
-
         _InitDB(services);
         return services;
     }
