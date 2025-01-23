@@ -1,9 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers;
 
-public class QuerySterile : BaseTurboQuery
+public class QuerySterile : BaseTurboQuery, IQuerySterile
 {
     /// <summary>
     /// Asynchronously executes a SQL query that does not return any result set (e.g., INSERT, UPDATE, DELETE)
@@ -58,13 +58,13 @@ public class QuerySterile : BaseTurboQuery
     {
         int RowAffected = 0;
 
-         using (SqlConnection conn = new SqlConnection(ConnectionString))
+        using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
             using (SqlCommand cmd = new SqlCommand(Query, conn))
             {
                 SetParams(cmd);
                 conn.Open();
-                RowAffected =  cmd.ExecuteNonQuery();
+                RowAffected = cmd.ExecuteNonQuery();
             }
         }
         return RowAffected;
@@ -131,7 +131,7 @@ public class QuerySterile : BaseTurboQuery
         }
         return RowAffected;
     }
-    
+
     /// <summary>
     /// Executes a batch of parameterized SQL queries for a collection of objects.
     /// </summary>

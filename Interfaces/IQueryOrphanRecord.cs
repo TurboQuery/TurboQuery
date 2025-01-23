@@ -2,8 +2,8 @@
 
 namespace TurboQuery.Interfaces;
 
-public interface IQueryOrphanRecord
+public interface IQueryOrphanRecord<T>
 {
-    Task<T> GetOrphanRecordAsync<T>(string query, Action<SqlCommand> setParameters, Func<SqlDataReader, T> mapFunction);
-    T GetOrphanRecord<T>(string query, Action<SqlCommand> setParameters, Func<SqlDataReader, T> mapFunction);
+    Task<T> GetOrphanRecordAsync(string query, Action<SqlCommand> setParameters, Func<SqlDataReader, T> mapFunction);
+    T GetOrphanRecord(string query, Action<SqlCommand> setParameters, Func<SqlDataReader, T> mapFunction);
 }

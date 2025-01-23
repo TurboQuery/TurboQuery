@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Globalization;
-
-namespace TurboQuery;
+﻿namespace TurboQuery;
 
 public abstract class BaseTurboQuery
 {

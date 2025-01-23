@@ -1,8 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers;
 
-public class QueryExecutor<T> : BaseTurboQuery
+public class QueryExecutor<T> : BaseTurboQuery, IQueryExecutor<T>
 {
     /// <summary>
     /// Asynchronously executes a SQL query and maps the results to a collection of objects using the provided mapping logic.
@@ -59,7 +60,7 @@ public class QueryExecutor<T> : BaseTurboQuery
                 conn.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while ( reader.Read())
+                    while (reader.Read())
                     {
                         T record = mapFunction(reader);
                         Records.Add(record);
@@ -147,7 +148,7 @@ public class QueryExecutor<T> : BaseTurboQuery
             {
                 SetParameters(cmd);
                 conn.Open();
-                using (SqlDataReader reader =  cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {

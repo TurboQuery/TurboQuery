@@ -1,9 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers;
 
-public class QueryScalarExecutor<T> : BaseTurboQuery
+public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
 {
     /// <summary>
     /// Asynchronously executes a SQL query and returns the first column of the first row in the result set as a specified type.
@@ -37,7 +37,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
                 SetParameters(cmd);
                 await conn.OpenAsync();
                 object ScalerResult = await cmd.ExecuteScalarAsync();
-                
+
                 if (ScalerResult != null && ScalerResult != DBNull.Value)
                     return (T)Convert.ChangeType(ScalerResult, typeof(T));
             }
@@ -98,7 +98,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
                 object ScalerResult = await cmd.ExecuteScalarAsync();
 
                 if (ScalerResult != null && ScalerResult != DBNull.Value)
-                   return (T)Convert.ChangeType(ScalerResult, typeof(T));
+                    return (T)Convert.ChangeType(ScalerResult, typeof(T));
             }
         }
         return default;
@@ -122,7 +122,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery
         {
             using (SqlCommand cmd = new SqlCommand(Query, conn))
             {
-                 conn.Open();
+                conn.Open();
                 object ScalerResult = cmd.ExecuteScalar();
 
                 if (ScalerResult != null && ScalerResult != DBNull.Value)

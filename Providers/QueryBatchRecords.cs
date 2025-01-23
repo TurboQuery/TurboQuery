@@ -1,10 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using System.Data;
+using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers;
 
-public class QueryBatchRecords<T> : BaseTurboQuery
+public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
 {
     /// <summary>
     /// Asynchronously retrieves a paginated subset of data from a database table using a stored procedure.

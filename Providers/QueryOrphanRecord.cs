@@ -1,8 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers;
 
-public class QueryOrphanRecord<T>: BaseTurboQuery
+public class QueryOrphanRecord<T> : BaseTurboQuery, IQueryOrphanRecord<T>
 {
     /// <summary>
     /// Asynchronously retrieves a single record from the database based on the provided query.
@@ -25,7 +26,7 @@ public class QueryOrphanRecord<T>: BaseTurboQuery
                 {
                     while (await reader.ReadAsync())
                     {
-                       return mapFunction(reader);
+                        return mapFunction(reader);
                     }
                 }
             }
@@ -49,11 +50,11 @@ public class QueryOrphanRecord<T>: BaseTurboQuery
         {
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                 setParameters(cmd);
+                setParameters(cmd);
                 conn.Open();
-                using (SqlDataReader reader =  cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while ( reader.Read())
+                    while (reader.Read())
                     {
                         return mapFunction(reader);
                     }
