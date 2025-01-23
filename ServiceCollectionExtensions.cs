@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TurboQuery.Interfaces;
+using TurboQuery.Providers;
 
 namespace TurboQuery;
 
@@ -12,7 +14,16 @@ public static class ServiceCollectionExtensions
 
         TurboQueryGlobals.Configure(options);
 
-        DatabaseInitializer.InitializeDatabase();
+        _InitDB();
         return services;
+    }
+
+    private static void _InitDB()
+    {
+        if (!TurboQueryGlobals.IsDbInitialized)
+        {
+            DatabaseInitializer.InitializeDatabase();
+            TurboQueryGlobals.IsDbInitialized = true;
+        }
     }
 }
