@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using TurboQuery.Config;
 using TurboQuery.Providers.SqlServer;
 
-namespace TurboQuery;
+namespace TurboQuery.Config;
 
 public class DatabaseInitializer : BaseTurboQuery
 {
@@ -33,7 +32,7 @@ public class DatabaseInitializer : BaseTurboQuery
             throw new InvalidOperationException("SQL script could not be loaded.");
 
 
-        (new QuerySterile()).ExecuteNonQuery(sql);
+        new QuerySterile().ExecuteNonQuery(sql);
     }
 
     public static IServiceCollection ChooseDatabase(ref IServiceCollection services)

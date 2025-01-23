@@ -1,4 +1,6 @@
-﻿namespace TurboQuery;
+﻿using TurboQuery.Config;
+
+namespace TurboQuery;
 
 public abstract class BaseTurboQuery
 {

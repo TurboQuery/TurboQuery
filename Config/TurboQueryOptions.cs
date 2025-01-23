@@ -1,6 +1,6 @@
 ﻿using TurboQuery.Enums;
 
-namespace TurboQuery;
+namespace TurboQuery.Config;
 
 public class TurboQueryOptions
 {

@@ -1,4 +1,4 @@
-﻿namespace TurboQuery;
+﻿namespace TurboQuery.Config;
 
 public static class TurboQueryGlobules
 {
