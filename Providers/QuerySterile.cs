@@ -131,4 +131,124 @@ public class QuerySterile : BaseTurboQuery
         }
         return RowAffected;
     }
+    
+    /// <summary>
+    /// Executes a batch of parameterized SQL queries for a collection of objects.
+    /// </summary>
+    /// <typeparam name="T">The type of objects in the collection.</typeparam>
+    /// <param name="query">The SQL query to execute. This should be a parameterized query (e.g., "INSERT INTO table (column1, column2) VALUES (@Param1, @Param2)").</param>
+    /// <param name="objects">A collection of objects for which the query will be executed. Each object's properties will be mapped to the query parameters.</param>
+    /// <param name="mapParameters">
+    /// A delegate that maps the properties of each object to the parameters of the SQL query.
+    /// This delegate is responsible for adding parameters to the <see cref="SqlCommand"/> using <see cref="SqlCommand.Parameters.AddWithValue"/>.
+    /// </param>
+    /// <returns>The number of objects processed (i.e., the number of queries executed).</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="query"/>, <paramref name="objects"/>, or <paramref name="mapParameters"/> is null.
+    /// </exception>
+    /// <exception cref="SqlException">
+    /// Thrown if an error occurs while executing the SQL query.
+    /// </exception>
+    /// <remarks>
+    /// This method is useful for executing the same SQL query for multiple objects in a batch. It uses parameterized queries to prevent SQL injection
+    /// and ensures that each object's properties are safely mapped to the query parameters.
+    /// 
+    /// Example usage:
+    /// <code>
+    /// var users = new List&lt;User&gt;
+    /// {
+    ///     new User { Id = 1, Username = "Alice" },
+    ///     new User { Id = 2, Username = "Bob" }
+    /// };
+    /// 
+    /// int rowsProcessed = ExecuteBatchNonQuery(
+    ///     "INSERT INTO users (id, username) VALUES (@Id, @Username);",
+    ///     users,
+    ///     (user, command) =>
+    ///     {
+    ///         command.Parameters.AddWithValue("@Id", user.Id);
+    ///         command.Parameters.AddWithValue("@Username", user.Username);
+    ///     }
+    /// );
+    /// </code>
+    /// </remarks>
+    public int ExecuteBatchNonQuery<T>(string Query, IEnumerable<T> objects, Action<T, SqlCommand> MapQueryParams)
+    {
+        int RowAffected = 0;
+        using (SqlConnection connection = new SqlConnection(ConnectionString))
+        {
+            connection.Open();
+
+            foreach (T obj in objects)
+            {
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    MapQueryParams(obj, command);
+                    RowAffected += command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        return RowAffected;
+    }
+
+    /// <summary>
+    /// Executes a batch of parameterized SQL queries for a collection of objects asynchronous.
+    /// </summary>
+    /// <typeparam name="T">The type of objects in the collection.</typeparam>
+    /// <param name="query">The SQL query to execute. This should be a parameterized query (e.g., "INSERT INTO table (column1, column2) VALUES (@Param1, @Param2)").</param>
+    /// <param name="objects">A collection of objects for which the query will be executed. Each object's properties will be mapped to the query parameters.</param>
+    /// <param name="mapParameters">
+    /// A delegate that maps the properties of each object to the parameters of the SQL query.
+    /// This delegate is responsible for adding parameters to the <see cref="SqlCommand"/> using <see cref="SqlCommand.Parameters.AddWithValue"/>.
+    /// </param>
+    /// <returns>The number of objects processed (i.e., the number of queries executed).</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="query"/>, <paramref name="objects"/>, or <paramref name="mapParameters"/> is null.
+    /// </exception>
+    /// <exception cref="SqlException">
+    /// Thrown if an error occurs while executing the SQL query.
+    /// </exception>
+    /// <remarks>
+    /// This method is useful for executing the same SQL query for multiple objects in a batch. It uses parameterized queries to prevent SQL injection
+    /// and ensures that each object's properties are safely mapped to the query parameters.
+    /// 
+    /// Example usage:
+    /// <code>
+    /// var users = new List&lt;User&gt;
+    /// {
+    ///     new User { Id = 1, Username = "Alice" },
+    ///     new User { Id = 2, Username = "Bob" }
+    /// };
+    /// 
+    /// int rowsProcessed = ExecuteBatchNonQuery(
+    ///     "INSERT INTO users (id, username) VALUES (@Id, @Username);",
+    ///     users,
+    ///     (user, command) =>
+    ///     {
+    ///         command.Parameters.AddWithValue("@Id", user.Id);
+    ///         command.Parameters.AddWithValue("@Username", user.Username);
+    ///     }
+    /// );
+    /// </code>
+    /// </remarks>
+    public async Task<int> ExecuteBatchNonQueryAsync<T>(string Query, IEnumerable<T> objects, Action<T, SqlCommand> MapQueryParams)
+    {
+        int RowAffected = 0;
+        using (SqlConnection connection = new SqlConnection(ConnectionString))
+        {
+            await connection.OpenAsync();
+
+            foreach (T obj in objects)
+            {
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    MapQueryParams(obj, command);
+                    RowAffected += command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        return RowAffected;
+    }
 }

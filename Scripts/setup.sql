@@ -1,8 +1,8 @@
 -- Create Pagination Procedure.sql
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SP_TablePagination]') AND type IN (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SP_BatchingRecords]') AND type IN (N'P', N'PC'))
 BEGIN
     EXEC('
-    CREATE PROCEDURE SP_TablePagination
+    CREATE PROCEDURE SP_BatchingRecords
         @Query      NVARCHAR(MAX),  -- SQL query without ORDER BY clause
         @PageNumber INT,            -- Page number (1-based)
         @PageSize   INT             -- Number of records per page
