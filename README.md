@@ -33,6 +33,18 @@ Or, you can install it via the NuGet Package Manager in Visual Studio.
 
 ---
 
+## Usage
+
+```csharp
+builder.Services.AddTurboQuery(options =>
+{
+    options.ConnectionString = "YourConnectionString";
+    options.DatabaseEngine = TurboQuery.Enums.DatabaseEngine.SqlServer; // Default value
+});
+```
+
+---
+
 ## Classes and Methods Documentation
 
 Below is the documentation for each class and its methods in the package.
