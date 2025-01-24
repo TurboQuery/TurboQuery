@@ -9,6 +9,6 @@ public abstract class BaseTurboQuery
     public BaseTurboQuery()
     {
         ConnectionString = TurboQueryGlobules.Options.ConnectionString;
-        ProcedureNameForBatchTable = TurboQueryGlobules.Options.ProcedureNameForBatchTable;
+        ProcedureNameForBatchTable = TurboQueryGlobules.ProcedureNameForBatchTable;
     }
 }

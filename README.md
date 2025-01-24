@@ -6,7 +6,7 @@ TurboQuery is a .NET library that streamlines database query execution. It offer
 ## Table of Contents
 
 1. [Installation](#installation)
-2. [Usage](#usage)
+2. [Configuration](#configuration)
 3. [Classes and Methods Documentation](#classes-and-methods-documentation)
    - [QueryExecutor](#queryexecutor)
    - [QueryBatchRecords](#querybatchrecords)
@@ -33,7 +33,7 @@ Or, you can install it via the NuGet Package Manager in Visual Studio.
 
 ---
 
-## Usage
+## Configuration
 
 ```csharp
 builder.Services.AddTurboQuery(options =>
@@ -49,7 +49,7 @@ builder.Services.AddTurboQuery(options =>
 
 Below is the documentation for each class and its methods in the package.
 
----
+
 
 ### QueryExecutor
 

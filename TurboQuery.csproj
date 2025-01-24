@@ -3,6 +3,18 @@
 		<Version>1.0.0</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Title>Turbo Query</Title>
+		<Company>FerasBarahmeh</Company>
+		<Authors>FerasBarahmeh</Authors>
+		<Description>TurboQuery is a .NET library that streamlines database query execution. It offers a collection of classes and methods to efficiently manage query execution, batch processing, and scalar queries using the ADO package.
+</Description>
+		<Copyright>Copyright (c) [2025] [Feras Barahmeh]</Copyright>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/FerasBarahmeh/TurboQuery</RepositoryUrl>
+		<PackageTags>ADO;Dotnet;DB;Database;software</PackageTags>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://www.nuget.org/packages/TurboQuery</PackageProjectUrl>
 	</PropertyGroup>
 	
   <ItemGroup>
@@ -10,6 +22,17 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
 	  <EmbeddedResource Include="Scripts\setup.sql" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <None Update="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
