@@ -6,7 +6,8 @@ internal static class TurboQueryGlobules
 
     public static bool IsDbInitialized = false;
 
-    public static string ProcedureNameForBatchTable = "SP_BatchingRecords";
+    // TODO: Make it configurable
+    public static string ProcedureNameForBatchTable = "TurboQuery.SP_BatchingRecords";
     
     public static void Configure(TurboQueryOptions options)
     {

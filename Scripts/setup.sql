@@ -1,5 +1,11 @@
+
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'TurboQuery')
+BEGIN
+    EXEC('CREATE SCHEMA TurboQuery');
+END
+
 -- Create Pagination Procedure.sql
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SP_BatchingRecords]') AND type IN (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[TurboQuery].[SP_BatchingRecords]') AND type IN (N'P', N'PC'))
 BEGIN
     EXEC('
     CREATE PROCEDURE SP_BatchingRecords
