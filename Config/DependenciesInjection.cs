@@ -6,13 +6,13 @@ namespace TurboQuery.Config;
 
 public class DependenciesInjection
 {
-    public static IServiceCollection AddSqlServerServices(ref IServiceCollection services)
+    public static IServiceCollection AddSqlServerServices(IServiceCollection services)
     {
-        services.AddScoped(typeof(IQueryBatchRecords<>), typeof(QueryBatchRecords<>));
-        services.AddScoped(typeof(IQueryExecutor<>), typeof(QueryExecutor<>));
-        services.AddScoped(typeof(IQueryOrphanRecord<>), typeof(QueryOrphanRecord<>));
-        services.AddScoped(typeof(IQueryScalarExecutor<>), typeof(QueryScalarExecutor<>));
-        services.AddScoped<IQuerySterile, QuerySterile>();
+        services.AddSingleton(typeof(IQueryBatchRecords<>), typeof(QueryBatchRecords<>));
+        services.AddSingleton(typeof(IQueryExecutor<>), typeof(QueryExecutor<>));
+        services.AddSingleton(typeof(IQueryOrphanRecord<>), typeof(QueryOrphanRecord<>));
+        services.AddSingleton(typeof(IQueryScalarExecutor<>), typeof(QueryScalarExecutor<>));
+        services.AddSingleton<IQuerySterile, QuerySterile>();
         return services;
     }
 }

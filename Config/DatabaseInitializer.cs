@@ -35,12 +35,12 @@ public class DatabaseInitializer : BaseTurboQuery
         new QuerySterile().ExecuteNonQuery(sql);
     }
 
-    public static IServiceCollection ChooseDatabase(ref IServiceCollection services)
+    public static IServiceCollection ChooseDatabase(IServiceCollection services)
     {
         switch (TurboQueryGlobules.Options.DatabaseEngine)
         {
             case Enums.DatabaseEngine.SqlServer:
-                DependenciesInjection.AddSqlServerServices(ref services);
+                DependenciesInjection.AddSqlServerServices(services);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(TurboQueryGlobules.Options.DatabaseEngine), TurboQueryGlobules.Options.DatabaseEngine, "Unsupported database engine.");
