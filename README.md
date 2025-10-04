@@ -47,10 +47,12 @@ builder.Services.AddTurboQuery(options =>
 
 ## Classes and Methods Documentation
 
-Below is the documentation for each class and its methods in the package.
-
-
-
+- Below is the documentation for each class and its methods in the package.
+- Each class is designed to handle specific types of database operations, providing both asynchronous methods.
+- Each method includes examples to illustrate its usage.
+- Use class by inject it via DI or create an instance of it.
+- Each class injected with Singleton lifetime.
+- Use methods directly via DI proparity name
 ### QueryExecutor
 
 
