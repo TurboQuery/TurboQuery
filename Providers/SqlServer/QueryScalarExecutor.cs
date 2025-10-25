@@ -3,7 +3,7 @@ using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers.SqlServer;
 
-public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
+public class QueryScalarExecutor : BaseTurboQuery, IQueryScalarExecutor 
 {
     /// <summary>
     /// Asynchronously executes a SQL query and returns the first column of the first row in the result set as a specified type.
@@ -28,7 +28,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
     /// </example>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public async Task<T> ExecuteScalarAsync(string Query, Action<SqlCommand> SetParameters)
+    public async Task<T> ExecuteScalarAsync<T>(string Query, Action<SqlCommand> SetParameters)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
@@ -59,7 +59,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
     /// </remarks>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public T ExecuteScalar(string Query, Action<SqlCommand> SetParameters)
+    public T ExecuteScalar<T>(string Query, Action<SqlCommand> SetParameters)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
@@ -88,7 +88,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
     /// </remarks>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public async Task<T> ExecuteScalarAsync(string Query)
+    public async Task<T> ExecuteScalarAsync<T>(string Query)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {
@@ -116,7 +116,7 @@ public class QueryScalarExecutor<T> : BaseTurboQuery, IQueryScalarExecutor<T>
     /// </remarks>
     /// <exception cref="InvalidCastException">Thrown if the result cannot be cast to the specified type <typeparamref name="T"/>.</exception>
     /// <exception cref="SqlException">Thrown if an error occurs during the execution of the SQL command.</exception>
-    public T ExecuteScalar(string Query)
+    public T ExecuteScalar<T>(string Query)
     {
         using (SqlConnection conn = new SqlConnection(ConnectionString))
         {

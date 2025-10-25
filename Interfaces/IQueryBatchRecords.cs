@@ -2,8 +2,8 @@
 
 namespace TurboQuery.Interfaces;
 
-public interface IQueryBatchRecords<T>
+public interface IQueryBatchRecords
 {
-    Task<IEnumerable<T>> BatchingTableAsync(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader);
-    IEnumerable<T> BatchingTable(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader);
+    Task<IEnumerable<T>> BatchingTableAsync<T>(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader);
+    IEnumerable<T> BatchingTable<T>(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader);
 }

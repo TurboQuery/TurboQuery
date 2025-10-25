@@ -4,7 +4,7 @@ using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers.SqlServer;
 
-public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
+public class QueryBatchRecords  : BaseTurboQuery, IQueryBatchRecords 
 {
     /// <summary>
     /// Asynchronously retrieves a paginated subset of data from a database table using a stored procedure.
@@ -26,10 +26,10 @@ public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
     /// - @PageSize: The number of records per page.
     /// The <paramref name="reader"/> delegate is used to map each row of the result set to an object of type <typeparamref name="T"/>.
     /// </remarks>
-    public async Task<IEnumerable<T>> BatchingTableAsync(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
+    public async Task<IEnumerable<T>> BatchingTableAsync<T>(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
     {
 
-        return await new QueryExecutor<T>().ExecuteReaderAsync(ProcedureNameForBatchTable, async (cmd) =>
+        return await new QueryExecutor().ExecuteReaderAsync(ProcedureNameForBatchTable, async (cmd) =>
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Query", sql);
@@ -60,9 +60,9 @@ public class QueryBatchRecords<T> : BaseTurboQuery, IQueryBatchRecords<T>
     /// - @PageSize: The number of records per page.
     /// The <paramref name="reader"/> delegate is used to map each row of the result set to an object of type <typeparamref name="T"/>.
     /// </remarks>
-    public IEnumerable<T> BatchingTable(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
+    public IEnumerable<T> BatchingTable<T>(string sql, int pageNumber, int pageSize, Func<SqlDataReader, T> reader)
     {
-        return new QueryExecutor<T>().ExecuteReader(ProcedureNameForBatchTable, async (cmd) =>
+        return new QueryExecutor().ExecuteReader(ProcedureNameForBatchTable, async (cmd) =>
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Query", sql);

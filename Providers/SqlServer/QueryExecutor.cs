@@ -3,7 +3,7 @@ using TurboQuery.Interfaces;
 
 namespace TurboQuery.Providers.SqlServer;
 
-public class QueryExecutor<T> : BaseTurboQuery, IQueryExecutor<T>
+public class QueryExecutor  : BaseTurboQuery, IQueryExecutor
 {
     /// <summary>
     /// Asynchronously executes a SQL query and maps the results to a collection of objects using the provided mapping logic.
@@ -17,7 +17,7 @@ public class QueryExecutor<T> : BaseTurboQuery, IQueryExecutor<T>
     /// to transform each row of the result set into an object of type <typeparamref name="T"/>. The method is asynchronous and uses
     /// <see cref="SqlConnection"/>, <see cref="SqlCommand"/>, and <see cref="SqlDataReader"/> for database operations.
     /// </remarks>
-    public async Task<IEnumerable<T>> ExecuteReaderAsync(string Query, Func<SqlDataReader, T> mapFunction)
+    public async Task<IEnumerable<T>> ExecuteReaderAsync<T>(string Query, Func<SqlDataReader, T> mapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -50,7 +50,7 @@ public class QueryExecutor<T> : BaseTurboQuery, IQueryExecutor<T>
     /// to transform each row of the result set into an object of type <typeparamref name="T"/>. The method is asynchronous and uses
     /// <see cref="SqlConnection"/>, <see cref="SqlCommand"/>, and <see cref="SqlDataReader"/> for database operations.
     /// </remarks>
-    public IEnumerable<T> ExecuteReader(string Query, Func<SqlDataReader, T> mapFunction)
+    public IEnumerable<T> ExecuteReader<T>(string Query, Func<SqlDataReader, T> mapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -95,7 +95,7 @@ public class QueryExecutor<T> : BaseTurboQuery, IQueryExecutor<T>
     /// Make sure the connection string is properly secured and appropriate for your environment.
     /// </remarks>
 
-    public async Task<IEnumerable<T>> ExecuteReaderAsync(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
+    public async Task<IEnumerable<T>> ExecuteReaderAsync<T>(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -139,7 +139,7 @@ public class QueryExecutor<T> : BaseTurboQuery, IQueryExecutor<T>
     /// This method uses an synchronous pattern for database access to ensure scalability and responsiveness. 
     /// Make sure the connection string is properly secured and appropriate for your environment.
     /// </remarks>
-    public IEnumerable<T> ExecuteReader(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
+    public IEnumerable<T> ExecuteReader<T>(string Query, Action<SqlCommand> SetParameters, Func<SqlDataReader, T> MapFunction)
     {
         List<T> Records = new List<T>();
         using (SqlConnection conn = new SqlConnection(ConnectionString))

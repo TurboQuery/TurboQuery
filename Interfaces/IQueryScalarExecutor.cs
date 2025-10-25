@@ -2,10 +2,10 @@
 
 namespace TurboQuery.Interfaces;
 
-public interface IQueryScalarExecutor<T>
+public interface IQueryScalarExecutor
 {
-    Task<T> ExecuteScalarAsync(string Query, Action<SqlCommand> SetParameters);
-    T ExecuteScalar(string Query, Action<SqlCommand> SetParameters);
-    Task<T> ExecuteScalarAsync(string Query);
-    T ExecuteScalar(string Query);
+    Task<T> ExecuteScalarAsync<T>(string Query, Action<SqlCommand> SetParameters);
+    T ExecuteScalar<T>(string Query, Action<SqlCommand> SetParameters);
+    Task<T> ExecuteScalarAsync<T>(string Query);
+    T ExecuteScalar<T>(string Query);
 }
